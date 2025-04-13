@@ -1,11 +1,15 @@
 package main
 
-import(
-	"fmt"
-	"github.com/alfredjstanley/websockets/hello"
+import (
+	"log"
+	"net/http"
 )
 
-
 func main() {
-	hello.RunServer()
+	setupAPI()
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func setupAPI() {
+	http.Handle("/", http.FileServer(http.Dir("./frontend")))
 }
